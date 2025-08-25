@@ -5,7 +5,7 @@ import Image from "next/image";
 import Reservation from "@/app/_components/Reservation";
 import { Suspense } from "react";
 import Spinner from "@/app/_components/Spinner";
-import Cabin from "@/app/_components/cabin";
+import Cabin from "@/app/_components/Cabin";
 
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params.cabinId);
