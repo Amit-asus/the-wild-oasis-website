@@ -7,7 +7,7 @@ export default function Error({ error, resetErrorBoundary }) {
       <h1 className="text-3xl font-semibold">Something went wrong!</h1>
       <p className="text-lg">{error.message || "Something went wrong!"}</p>
       <button
-        onClick={() => resetErrorBoundary()}
+        onClick={resetErrorBoundary}
         className="inline-block bg-accent-500 text-primary-800 px-6 py-3 text-lg"
       >
         Try again

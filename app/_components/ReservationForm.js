@@ -1,17 +1,18 @@
 "use client";
 
-import { diff } from "util";
 import { useReservation } from "./ReservationContext";
 import { createBooking } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
+import { differenceInDays } from "date-fns";
 
 function ReservationForm({ cabin, user }) {
   // CHANGE
   const { maxCapacity, regularPrice, discount, id } = cabin;
   const { range, resetRange } = useReservation();
-  const startDate = range?.startDate;
-  const endDate = range?.endDate;
-  const numNights = diff(endDate, startDate) || 0;
+  console.log("range in form", range);
+  const startDate = range?.from;
+  const endDate = range?.to;
+  const numNights = differenceInDays(endDate, startDate) || 0;
   const cabinPrice = numNights * (regularPrice - discount);
   const bookingData = {
     cabinId: id,
@@ -21,7 +22,7 @@ function ReservationForm({ cabin, user }) {
     cabinPrice,
   };
   const createBookingWithData = createBooking.bind(null, bookingData); //bind the 1st parameter to the booking data and the formdata will be overwritten
-
+  console.log("stars date", startDate, "end date", endDate);
   return (
     <div className="scale-[1.01] ">
       <div className="bg-primary-800 text-primary-300 px-16 py-2 flex justify-between items-center">
@@ -85,9 +86,9 @@ function ReservationForm({ cabin, user }) {
             </p>
           ) : (
             <>
-              <SubmitButton pendingLabel="Reserving..." />
-              <span>Reserve Now</span>
-              <SubmitButton />
+              <SubmitButton pendingLabel="Reserving...">
+                Reserve Now
+              </SubmitButton>
             </>
           )}
         </div>
